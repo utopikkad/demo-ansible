@@ -1,0 +1,30 @@
+
+
+# Un playbook est un tableau de plays
+
+
+- hosts: app
+  tasks:
+    - name: Update Apache
+      apt:
+        name: apache2
+        state: latest
+        update_cache: yes
+
+
+- hosts: db
+  tasks:
+    - name: Update mardiadb server
+      apt:
+        name: mariadb-server
+        state: latest
+        update_cache: yes
+
+
+- hosts: db
+  tasks:
+    - name: Update the latest OpenSSH
+      apt:
+        name: openssh-server
+        state: latest
+        update_cache: yes

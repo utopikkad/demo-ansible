@@ -1,0 +1,34 @@
+
+
+
+- hosts: all
+  tasks:
+    - name: Install the latest PHP version
+      apt:
+        name: php
+        state: latest
+        update_cache: yes
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+- hosts: tools
+  tasks:
+  - name: Install utils
+    apt:
+      name:
+        - curl
+        - wget
+        - unzip
+      state: present
+      update_cache: yes
+      cache_valid_time: 3600
+
+- hosts: vh
+  - name: Create virtual hosts
+    vars:
+      apache_vhosts:
+        - {servername: "www.recettes.tld", documentroot: "/www/recette"}
+        - {servername: "www.politiques.tld", documentroot: "/www/politiques", serveradmin: "webmaster@recette.tld"}
